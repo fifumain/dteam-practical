@@ -29,7 +29,11 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-CORE_APPS = ["main", "cv_rest"]
+CORE_APPS = [
+    "main",
+    "cv_rest",
+    "audit",
+]
 
 EXTERNAL_APPS = ["weasyprint", "rest_framework"]
 DEFAULT_APPS = [
@@ -51,6 +55,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "audit.middleware.RequestLoggingMiddleware",
 ]
 
 ROOT_URLCONF = "cvproject.urls"

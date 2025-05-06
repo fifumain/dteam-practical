@@ -1,9 +1,7 @@
-from django.http import HttpResponse
-from django.template.loader import render_to_string
 from django.views.generic import DetailView, ListView
-from weasyprint import HTML
 
 from .models import CV
+from .utils import generate_cv_pdf
 
 
 class ListCV(ListView):
@@ -23,10 +21,38 @@ class ListCV(ListView):
         return CV.objects.order_by("-created_at")
 
 
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+from django.views.generic import DetailView
+
+from .models import CV
+from .tasks import send_cv_pdf_to_email  # Import the Celery task
+
+
 class DetailCV(DetailView):
     model = CV
     template_name = "main/cv_detail.html"
     context_object_name = "cv"
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handles the POST request to send the CV PDF to the provided email.
+        """
+        cv = self.get_object()
+        recipient_email = request.POST.get("email")
+
+        if recipient_email:
+
+            send_cv_pdf_to_email.delay(cv.id, recipient_email)
+
+            return HttpResponseRedirect(reverse("cv-list"))
+
+        return render(
+            request,
+            self.template_name,
+            {"cv": cv, "error": "Please provide a valid email."},
+        )
 
 
 class CVPDFView(DetailView):
@@ -34,16 +60,7 @@ class CVPDFView(DetailView):
 
     def get(self, request, *args, **kwargs):
         """
-        Generates a PDF of the CV from the HTML template.
+        Generates a PDF of the CV from the HTML template using the utility function.
         """
         self.object = self.get_object()
-        html_string = render_to_string(
-            "main/cv_detail.html", {"cv": self.object, "pdf": True}
-        )
-        html = HTML(string=html_string, base_url=request.build_absolute_uri())
-        pdf = html.write_pdf()
-
-        response = HttpResponse(pdf, content_type="application/pdf")
-        filename = f"{self.object.first_name}_{self.object.last_name}_CV.pdf"
-        response["Content-Disposition"] = f'attachment; filename="{filename}"'
-        return response
+        return generate_cv_pdf(self.object, request)

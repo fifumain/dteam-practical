@@ -37,7 +37,11 @@ CORE_APPS = [
     "task5_app",
 ]
 
-EXTERNAL_APPS = ["weasyprint", "rest_framework"]
+EXTERNAL_APPS = [
+    "weasyprint",
+    "rest_framework",
+    "djcelery_email",
+]
 DEFAULT_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -139,3 +143,22 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 ALLOWED_HOSTS = ["*"]
+
+CELERY_BROKER_URL = "redis://redis:6379/0"
+CELERY_ACCEPT_CONTENT = ["json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_BACKEND = "redis://redis:6379/0"
+
+# MAILHOG USED TO TEST EMAIL SYSTEM
+EMAIL_BACKEND = "djcelery_email.backends.CeleryEmailBackend"
+EMAIL_HOST = "mailhog"  #
+EMAIL_PORT = 1025  # SMTP  MailHog
+EMAIL_USE_TLS = False  # MailHog dont use TLS
+EMAIL_HOST_USER = ""  # MailHog dont need this
+EMAIL_HOST_PASSWORD = ""
+DEFAULT_FROM_EMAIL = "filip-test@example.com"
+
+CELERY_EMAIL_TASK_CONFIG = {
+    "CELERY_TASK_SERIALIZER": "json",
+    "CELERY_ACCEPT_CONTENT": ["json"],
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "model": "main.CV",
+    "pk": 1,
+    "fields": {
+      "first_name": "Filip",
+      "last_name": "Test name",
+      "bio": "Python Developer with 3 years of experience",
+      "contacts": "Email: pustovoitenkofilip@gmail.com",
+      "skills": "Python, Django, REST, PostgreSQL, test test",
+      "projects": "test projects",
+      "created_at": "2025-05-06",
+      "updated_at": "2025-05-06"
+    }
+  }
+]

@@ -317,6 +317,21 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "djangorestframework"
+version = "3.16.0"
+description = "Web APIs for Django, made easy."
+optional = false
+python-versions = ">=3.9"
+groups = ["main"]
+files = [
+    {file = "djangorestframework-3.16.0-py3-none-any.whl", hash = "sha256:bea7e9f6b96a8584c5224bfb2e4348dfb3f8b5e34edbecb98da258e892089361"},
+    {file = "djangorestframework-3.16.0.tar.gz", hash = "sha256:f022ff46613584de994c0c6a4aebbace5fd700555fbe9d33b865ebf173eba6c9"},
+]
+
+[package.dependencies]
+django = ">=4.2"
+
+[[package]]
 name = "fonttools"
 version = "4.57.0"
 description = "Tools to manipulate font files"
@@ -744,4 +759,4 @@ test = ["pytest"]
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10"
-content-hash = "65b897225b877f1e5de09c792a7db85cac5c9e8e0cf8f8856e21e6a23fc6dacf"
+content-hash = "14e1f9b0c8bee494e595c68fb3756c8f695afc7afb9e44bd0b275ee816002fda"

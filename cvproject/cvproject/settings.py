@@ -29,13 +29,9 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-CORE_APPS = [
-    "main",
-]
+CORE_APPS = ["main", "cv_rest"]
 
-EXTERNAL_APPS = [
-    "weasyprint",
-]
+EXTERNAL_APPS = ["weasyprint", "rest_framework"]
 DEFAULT_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",

@@ -33,6 +33,9 @@ CORE_APPS = [
     "main",
 ]
 
+EXTERNAL_APPS = [
+    "weasyprint",
+]
 DEFAULT_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -42,7 +45,7 @@ DEFAULT_APPS = [
     "django.contrib.staticfiles",
 ]
 
-INSTALLED_APPS = CORE_APPS + DEFAULT_APPS
+INSTALLED_APPS = CORE_APPS + DEFAULT_APPS + EXTERNAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

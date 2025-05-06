@@ -33,6 +33,7 @@ CORE_APPS = [
     "main",
     "cv_rest",
     "audit",
+    "task5_app",
 ]
 
 EXTERNAL_APPS = ["weasyprint", "rest_framework"]
@@ -70,6 +71,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "task5_app.context_processors.settings_context",
             ],
         },
     },
@@ -129,3 +131,5 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+ALLOWED_HOSTS = ["*"]

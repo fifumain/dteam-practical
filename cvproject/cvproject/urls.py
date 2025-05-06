@@ -23,4 +23,5 @@ urlpatterns = [
     path("", include("main.urls")),
     path("", include("cv_rest.urls")),
     path("", include("audit.urls")),
+    path("", include("task5_app.urls")),
 ]

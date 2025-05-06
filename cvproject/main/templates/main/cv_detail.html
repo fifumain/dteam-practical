@@ -35,20 +35,81 @@
     <div class="card shadow-sm">
         <div class="card-body">
             <h3 class="card-title">{{ cv.first_name }} {{ cv.last_name }}</h3>
-            <p><strong>Bio:</strong><br>{{ cv.bio|linebreaksbr }}</p>
-            <p><strong>Contacts:</strong><br>{{ cv.contacts|linebreaksbr }}</p>
-            <p><strong>Skills:</strong><br>{{ cv.skills|linebreaksbr }}</p>
-            <p><strong>Projects:</strong><br>{{ cv.projects|linebreaksbr }}</p>
-            
+
+            <p><strong>Bio:</strong><br>
+                {% if translated_bio %}
+                    {{ translated_bio|linebreaksbr }}
+                {% else %}
+                    {{ cv.bio|linebreaksbr }}
+                {% endif %}
+            </p>
+
+            <p><strong>Contacts:</strong><br>
+                {% if translated_contacts %}
+                    {{ translated_contacts|linebreaksbr }}
+                {% else %}
+                    {{ cv.contacts|linebreaksbr }}
+                {% endif %}
+            </p>
+
+            <p><strong>Skills:</strong><br>
+                {% if translated_skills %}
+                    {{ translated_skills|linebreaksbr }}
+                {% else %}
+                    {{ cv.skills|linebreaksbr }}
+                {% endif %}
+            </p>
+
+            <p><strong>Projects:</strong><br>
+                {% if translated_projects %}
+                    {{ translated_projects|linebreaksbr }}
+                {% else %}
+                    {{ cv.projects|linebreaksbr }}
+                {% endif %}
+            </p>
         </div>
         <div class="card-footer">
             Created: {{ cv.created_at|date:"Y-m-d H:i" }}<br>
             Last Updated: {{ cv.updated_at|date:"Y-m-d H:i" }}
         </div>
     </div>
+
+    <!-- Language Selector -->
+    <div class="form-box mt-4">
+        <h4>Select Language to Translate</h4>
+        <form method="POST" action="{% url 'translate_cv' cv.id %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="language" class="form-label">Choose Language:</label>
+                <select id="language" name="language" class="form-select" required>
+                    <option value="en" {% if language == 'en' %}selected{% endif %}>English</option>
+                    <option value="kw" {% if language == 'kw' %}selected{% endif %}>Cornish</option>
+                    <option value="gv" {% if language == 'gv' %}selected{% endif %}>Manx</option>
+                    <option value="br" {% if language == 'br' %}selected{% endif %}>Breton</option>
+                    <option value="iu" {% if language == 'iu' %}selected{% endif %}>Inuktitut</option>
+                    <option value="kl" {% if language == 'kl' %}selected{% endif %}>Kalaallisut</option>
+                    <option value="rom" {% if language == 'rom' %}selected{% endif %}>Romani</option>
+                    <option value="oc" {% if language == 'oc' %}selected{% endif %}>Occitan</option>
+                    <option value="li" {% if language == 'li' %}selected{% endif %}>Ladino</option>
+                    <option value="se" {% if language == 'se' %}selected{% endif %}>Northern Sami</option>
+                    <option value="hsb" {% if language == 'hsb' %}selected{% endif %}>Upper Sorbian</option>
+                    <option value="csb" {% if language == 'csb' %}selected{% endif %}>Kashubian</option>
+                    <option value="zza" {% if language == 'zza' %}selected{% endif %}>Zazaki</option>
+                    <option value="cv" {% if language == 'cv' %}selected{% endif %}>Chuvash</option>
+                    <option value="lv" {% if language == 'lv' %}selected{% endif %}>Livonian</option>
+                    <option value="ts" {% if language == 'ts' %}selected{% endif %}>Tsakonian</option>
+                    <option value="srm" {% if language == 'srm' %}selected{% endif %}>Saramaccan</option>
+                    <option value="bi" {% if language == 'bi' %}selected{% endif %}>Bislama</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Translate CV</button>
+        </form>
+    </div>
+
+    <!-- Send CV to Email -->
     <div class="form-box mt-4">
         <h4>Send CV to Email</h4>
-        <form  method="POST" action="">
+        <form method="POST" action="">
             {% csrf_token %}
             <div class="mb-3">
                 <label for="email" class="form-label">Enter email address:</label>

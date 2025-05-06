@@ -41,6 +41,7 @@ EXTERNAL_APPS = [
     "weasyprint",
     "rest_framework",
     "djcelery_email",
+    "openai",
 ]
 DEFAULT_APPS = [
     "django.contrib.admin",

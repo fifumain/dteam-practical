@@ -48,8 +48,7 @@ docker-compose exec web python manage.py migrate
 ```
 Apply fixture
 ```bash
-cd main
-python ../manage.py loaddata cv_fixture.json
+docker compose exec web python manage.py loaddata main/cv_fixture.json
 ```
 
 

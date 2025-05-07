@@ -1,10 +1,13 @@
 import os
 
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from openai import OpenAI
 
 from .models import CV
+from .tasks import send_cv_pdf_to_email
 from .utils import generate_cv_pdf
 
 client = OpenAI(
@@ -29,15 +32,6 @@ class ListCV(ListView):
         return CV.objects.order_by("-created_at")
 
 
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse
-from django.views.generic import DetailView
-
-from .models import CV
-from .tasks import send_cv_pdf_to_email
-
-
 class DetailCV(DetailView):
     model = CV
     template_name = "main/cv_detail.html"
@@ -54,7 +48,7 @@ class DetailCV(DetailView):
 
             send_cv_pdf_to_email.delay(cv.id, recipient_email)
 
-            return HttpResponseRedirect(reverse("cv-list"))
+            return HttpResponseRedirect(reverse("cv-list-home"))
 
         return render(
             request,

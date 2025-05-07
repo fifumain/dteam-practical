@@ -26,7 +26,7 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'cv-list' %}">← Back to CV List</a>
+        <a class="navbar-brand" href="{% url 'cv-list-home' %}">← Back to CV List</a>
         <a class="navbar-brand" href="{% url 'cv-pdf' cv.pk %}">Download PDF</a>
     </div>
 </nav>
@@ -74,7 +74,7 @@
         </div>
     </div>
 
-    <!-- Language Selector -->
+
     <div class="form-box mt-4">
         <h4>Select Language to Translate</h4>
         <form method="POST" action="{% url 'translate_cv' cv.id %}">
@@ -106,7 +106,6 @@
         </form>
     </div>
 
-    <!-- Send CV to Email -->
     <div class="form-box mt-4">
         <h4>Send CV to Email</h4>
         <form method="POST" action="">

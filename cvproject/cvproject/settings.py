@@ -163,3 +163,6 @@ CELERY_EMAIL_TASK_CONFIG = {
     "CELERY_TASK_SERIALIZER": "json",
     "CELERY_ACCEPT_CONTENT": ["json"],
 }
+
+
+OPENAI_KEY = os.getenv("OPENAI_KEY")

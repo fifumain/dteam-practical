@@ -1,5 +1,6 @@
 import os
 
+from django.conf import settings
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
@@ -11,7 +12,7 @@ from .tasks import send_cv_pdf_to_email
 from .utils import generate_cv_pdf
 
 client = OpenAI(
-    api_key=os.getenv("OPENAI_KEY"),
+    api_key=settings.OPENAI_KEY,
 )
 
 
